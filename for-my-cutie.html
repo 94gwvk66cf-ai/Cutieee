@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Cutie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,500&family=Caveat:wght@500;700&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --peach: #ffd9c2;
+    --rose: #f2a6a2;
+    --plum: #4a2e46;
+    --gold: #f2b544;
+    --sage: #8fa98a;
+    --cream: #fff6ee;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    background: linear-gradient(180deg, var(--cream) 0%, #ffeee0 60%, #ffe3d6 100%);
+    color: var(--plum);
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  /* ---------- floating hearts background ---------- */
+  #hearts{
+    position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;
+  }
+  .bg-heart{
+    position:absolute; bottom:-40px; opacity:0.55;
+    animation-name: rise; animation-timing-function: ease-in; animation-iteration-count: infinite;
+  }
+  @keyframes rise{
+    0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity:0; }
+    10%{ opacity:0.6; }
+    100%{ transform: translateY(-110vh) translateX(var(--drift, 40px)) rotate(25deg); opacity:0; }
+  }
+
+  section{
+    position:relative; z-index:1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height: 92vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    gap: 18px;
+  }
+  .eyebrow{
+    font-family:'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--rose);
+    transform: rotate(-3deg);
+  }
+  .headline{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(2.6rem, 8vw, 4.6rem);
+    line-height: 1.05;
+    color: var(--plum);
+  }
+  .headline em{
+    font-style: italic;
+    font-weight: 300;
+    color: var(--rose);
+  }
+  .sub{
+    font-size: 1.05rem;
+    max-width: 44ch;
+    color: #6b4f63;
+    line-height:1.6;
+  }
+  .scroll-hint{
+    margin-top: 40px;
+    font-family:'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--plum);
+    opacity: 0.7;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(8px); }
+  }
+
+  /* ---------- reasons ---------- */
+  .reasons-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    text-align:center;
+    margin: 0 0 8px;
+  }
+  .reasons-sub{
+    text-align:center;
+    font-family:'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--rose);
+    margin-bottom: 40px;
+  }
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 100px;
+  }
+  @media (max-width: 560px){
+    .card-grid{ grid-template-columns: 1fr; }
+  }
+  .flip-card{
+    perspective: 1200px;
+    height: 150px;
+    cursor: pointer;
+  }
+  .flip-inner{
+    position:relative; width:100%; height:100%;
+    transition: transform 0.7s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner{
+    transform: rotateY(180deg);
+  }
+  .flip-front, .flip-back{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 16px;
+    border-radius: 18px;
+    backface-visibility: hidden;
+  }
+  .flip-front{
+    background: linear-gradient(135deg, var(--rose), var(--peach));
+    color: #fff;
+    font-family:'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(242,166,162,0.35);
+  }
+  .flip-back{
+    background: #fff;
+    transform: rotateY(180deg);
+    font-family:'Caveat', cursive;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    color: var(--plum);
+    border: 2px solid var(--peach);
+  }
+
+  /* ---------- love jar signature moment ---------- */
+  .jar-section{
+    text-align:center;
+    padding-bottom: 100px;
+  }
+  .jar-title{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    margin-bottom: 8px;
+  }
+  .jar-sub{
+    font-family:'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--rose);
+    margin-bottom: 36px;
+  }
+  .jar-wrap{
+    position:relative;
+    width: 220px;
+    margin: 0 auto;
+  }
+  .jar{
+    width: 200px;
+    height: 220px;
+    margin: 0 auto;
+    position:relative;
+    cursor:pointer;
+  }
+  .jar-lid{
+    width: 130px;
+    height: 34px;
+    background: var(--gold);
+    border-radius: 10px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+    transition: transform 0.5s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  .jar.open .jar-lid{
+    transform: translateY(-60px) rotate(-18deg);
+  }
+  .jar-body{
+    width: 200px;
+    height: 190px;
+    background: rgba(255,255,255,0.5);
+    border: 3px solid var(--gold);
+    border-top: none;
+    border-radius: 0 0 26px 26px;
+    margin-top: -6px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(1px);
+  }
+  .jar-note{
+    position:absolute;
+    width: 34px; height: 24px;
+    background: var(--rose);
+    border-radius: 3px;
+    bottom: 12px;
+    opacity: 0.9;
+    transition: all 1s cubic-bezier(.3,.7,.2,1);
+  }
+  .jar.open .jar-note{
+    bottom: 260px;
+    opacity: 0;
+  }
+  .jar-hint{
+    font-family:'Caveat', cursive;
+    font-size: 1.2rem;
+    color: #6b4f63;
+    margin-top: 18px;
+  }
+  .jar-message{
+    max-width: 46ch;
+    margin: 28px auto 0;
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: var(--plum);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.8s ease;
+  }
+  .jar-message.show{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  footer{
+    text-align:center;
+    padding: 30px 0 60px;
+    font-family:'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--rose);
+    position:relative; z-index:1;
+  }
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+
+<section class="hero">
+  <div class="eyebrow">a little something for</div>
+  <h1 class="headline">Hey <em>cutie</em>,<br>you make my whole world softer.</h1>
+  <p class="sub">I made you a tiny corner of the internet, just because. Scroll down — there's more waiting for you.</p>
+  <div class="scroll-hint">↓ keep going ↓</div>
+</section>
+
+<section class="reasons">
+  <h2 class="reasons-title">a few reasons, out of a thousand</h2>
+  <p class="reasons-sub">tap each card</p>
+  <div class="card-grid" id="cardGrid">
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front">Your laugh</div>
+      <div class="flip-back">It's the best sound I know, and I will always ask for one more.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front">How you care</div>
+      <div class="flip-back">You notice the small things about people. That's rare, and it's so you.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front">Lazy Sundays</div>
+      <div class="flip-back">Doing absolutely nothing feels like something when it's with you.</div>
+    </div></div>
+    <div class="flip-card"><div class="flip-inner">
+      <div class="flip-front">You, just being you</div>
+      <div class="flip-back">Not a version of you. Not a better one. Just exactly this one.</div>
+    </div></div>
+  </div>
+</section>
+
+<section class="jar-section">
+  <h2 class="jar-title">one more thing</h2>
+  <p class="jar-sub">open the jar</p>
+  <div class="jar-wrap">
+    <div class="jar" id="loveJar">
+      <div class="jar-lid"></div>
+      <div class="jar-body" id="jarBody"></div>
+    </div>
+  </div>
+  <p class="jar-hint">go on, tap it</p>
+  <p class="jar-message" id="jarMessage">Whatever today throws at you — I'm in your corner. I love you more than this little webpage could ever hold.</p>
+</section>
+
+<footer>made with love, for my favorite person 💛</footer>
+
+<script>
+  // floating background hearts
+  const heartsContainer = document.getElementById('hearts');
+  const heartCount = 18;
+  for(let i=0;i<heartCount;i++){
+    const h = document.createElement('div');
+    h.className = 'bg-heart';
+    const size = 10 + Math.random()*18;
+    h.style.left = Math.random()*100 + 'vw';
+    h.style.width = size + 'px';
+    h.style.height = size + 'px';
+    h.style.setProperty('--drift', (Math.random()*80-40) + 'px');
+    h.style.animationDuration = (9 + Math.random()*10) + 's';
+    h.style.animationDelay = (Math.random()*10) + 's';
+    h.innerHTML = `<svg viewBox="0 0 32 29" fill="${['#f2a6a2','#f2b544','#8fa98a','#ffd9c2'][i%4]}" width="100%" height="100%"><path d="M23.6 0c-3.4 0-6.3 2-7.6 5-1.3-3-4.2-5-7.6-5C3.8 0 0 3.8 0 8.6 0 15.6 9 21.6 16 29c7-7.4 16-13.4 16-20.4C32 3.8 28.2 0 23.6 0z"/></svg>`;
+    heartsContainer.appendChild(h);
+  }
+
+  // flip cards
+  document.querySelectorAll('.flip-card').forEach(card=>{
+    card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+  });
+
+  // love jar
+  const jar = document.getElementById('loveJar');
+  const jarBody = document.getElementById('jarBody');
+  const jarMessage = document.getElementById('jarMessage');
+  let opened = false;
+
+  // seed a few little notes inside the jar
+  for(let i=0;i<6;i++){
+    const n = document.createElement('div');
+    n.className = 'jar-note';
+    n.style.left = (10 + Math.random()*140) + 'px';
+    n.style.transform = `rotate(${Math.random()*30-15}deg)`;
+    n.style.background = ['#f2a6a2','#f2b544','#8fa98a'][i%3];
+    n.style.transitionDelay = (i*0.06) + 's';
+    jarBody.appendChild(n);
+  }
+
+  jar.addEventListener('click', ()=>{
+    if(opened) return;
+    opened = true;
+    jar.classList.add('open');
+    setTimeout(()=> jarMessage.classList.add('show'), 500);
+  });
+</script>
+
+</body>
+</html>
